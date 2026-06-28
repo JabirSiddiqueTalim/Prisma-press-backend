@@ -1,8 +1,10 @@
+import { configDotenv } from "dotenv";
 import app from "./app";
 import config from "./config";
 import { prisma } from "./lib/prisma";
 import "dotenv/config";
 const PORT =config.port ;
+console.log(PORT)
 async function main (){
   try {
     await prisma.$connect();
