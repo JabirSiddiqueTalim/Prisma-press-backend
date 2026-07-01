@@ -6,8 +6,7 @@ import config from "../../config";
 import { UserService } from "./user.service";
 import { catchAsync } from "../utils/catchAsync";
 import { sendResponse } from "../utils/sendResponse";
-
-
+import  jwt  from "jsonwebtoken";
 
 const registerController=catchAsync(async(req:Request,res:Response,next:NextFunction)=>{
   const payload=req.body;
@@ -20,7 +19,20 @@ const registerController=catchAsync(async(req:Request,res:Response,next:NextFunc
         data:{user}
   })
 })
+const getMyProfile=catchAsync(async(req:Request,res:Response,next:NextFunction)=>{
+  
+  const {accessToken}=req.cookies;
+  console.log(accessToken);
+  const varifiedToken=jwt.verify(accessToken,config.jwt_access_secret);
+  console.log(varifiedToken);
+  
+  
+  
+  res.send("Get my profile")
+})
+
 
 export const UserController={
-  registerController
+  registerController,
+  getMyProfile
 }
