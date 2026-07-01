@@ -47,6 +47,22 @@ const user=await prisma.user.findUnique({
 })
  return user;
 }
+
+const getMyProfileIntoDB=async(userId:string)=>{
+  const user=await prisma.user.findFirstOrThrow({
+    where:{id:userId},
+    omit:{
+      password:true
+    },
+    include:{
+      profile:true
+
+    }
+    
+  })
+  return user;
+}
 export const UserService={
-  registerUserIntoDB
+  registerUserIntoDB,
+  getMyProfileIntoDB
 }
