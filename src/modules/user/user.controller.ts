@@ -24,16 +24,15 @@ const registerController=catchAsync(async(req:Request,res:Response,next:NextFunc
 })
 const getMyProfile=catchAsync(async(req:Request,res:Response,next:NextFunction)=>{
   
-  const {accessToken}=req.cookies;
-  console.log(accessToken);
-  const varifiedToken= jwtUtils.varifiedToken(accessToken,config.jwt_access_secret)
-  console.log(varifiedToken);
-  if(typeof varifiedToken === "string")
-  {
-    throw new Error(varifiedToken);
-
-  }
-  const profile=await UserService.getMyProfileIntoDB(varifiedToken.id)
+  // const {accessToken}=req.cookies;
+  // console.log(req.user,"User Request");
+  // const varifiedToken= jwtUtils.varifiedToken(accessToken,config.jwt_access_secret)
+ 
+  // if(typeof varifiedToken === "string")
+  // {
+  //   throw new Error(varifiedToken);
+  // }
+  const profile=await UserService.getMyProfileIntoDB(req.user?.id as string)
   
   sendResponse(res,{
     success: true,
