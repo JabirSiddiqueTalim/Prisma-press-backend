@@ -43,4 +43,7 @@ router.get("/me",
 // },
 auth(Role.ADMIN,Role.AUTHOR,Role.USER),
 UserController.getMyProfile)
+
+router.put("/my-profile", auth(Role.ADMIN, Role.USER, Role.AUTHOR), UserController.updateMyProfile);
+
 export const userRouter=router;
